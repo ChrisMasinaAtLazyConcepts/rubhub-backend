@@ -7,7 +7,7 @@ on:
 
 env:
   DOCKER_USERNAME: chrisdockeruser879 
-  REPO_NAME: chrisdockeruser879/rubhub-api
+  REPO_NAME: chrisdockeruser879/rubhub-backend
   
 permissions:
   packages: write
