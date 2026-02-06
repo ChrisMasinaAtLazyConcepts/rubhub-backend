@@ -6,7 +6,7 @@ spring:
     name: rubhub-api
   
   datasource:
-    url: jdbc:postgresql://35.239.182.6:5432/rubhub
+    url: jdbc:postgresql://host.docker.internal:5432/rubhub
     username: rubhub
     password: "RubHubApp@2026"
     driver-class-name: org.postgresql.Driver
