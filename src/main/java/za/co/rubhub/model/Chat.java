@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "chats")
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "messages")
 @EqualsAndHashCode(exclude = "messages")
