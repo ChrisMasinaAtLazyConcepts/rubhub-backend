@@ -1,0 +1,52 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: rubhub-api
+  
+  datasource:
+    url: jdbc:postgresql://35.239.182.6:5432/rubhub
+    username: rubhub
+    password: "RubHubApp@2026"
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
+  
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
+# Cloud SQL Socket Factory configuration
+spring.cloud.gcp.sql:
+  enabled: true
+  database-name: rubhub
+  instance-connection-name: rubhub:us-central1:rubhub
+
+logging:
+  level:
+    com.korporate: INFO
+    org.springframework: INFO
+    org.springframework.security: WARN
+  file:
+    name: /var/log/koporate-api.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when_authorized
+      show-components: when_authorized

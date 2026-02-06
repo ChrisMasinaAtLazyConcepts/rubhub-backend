@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: korporate-back-end
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: korporate-back-end
+  template:
+    metadata:
+      labels:
+        app: korporate-back-end
+    spec:
+      containers:
+      - name: korporate-back-end-container
+        image: gcr.io/your-project-id/korporate-backend-image
+        ports:
+        - containerPort: 8080

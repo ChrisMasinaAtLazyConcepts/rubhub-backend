@@ -1,0 +1,46 @@
+name: Build and push Docker image
+on:
+  push:
+    branches:
+      - master
+
+env:
+  DOCKER_USERNAME: chrisdockeruser879 
+  REPO_NAME: chrisdockeruser879/rubhub-api
+  
+permissions:
+  packages: write
+  contents: read
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup npm cache
+        run: npm config set cache /tmp/.npm
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build React app
+        run: npm run build
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: chrisdockeruser879
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+         # Push to YOUR personal Docker Hub account
+         docker build -t chrisdockeruser879/rubhub-api:latest .
+         docker push chrisdockeruser879/rubhub-api:latest
