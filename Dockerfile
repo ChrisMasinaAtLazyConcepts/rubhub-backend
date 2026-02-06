@@ -6,14 +6,13 @@ RUN mvn dependency:go-offline -B
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Runtime stage
-FROM openjdk:8-jre-slim
+# Runtime stage - Use Amazon Corretto (still supports Java 8)
+FROM amazoncorretto:8-alpine-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 # Create a non-root user
-RUN addgroup --system --gid 1001 spring && \
-    adduser --system --uid 1001 --ingroup spring spring
+RUN addgroup -S spring && adduser -S spring -G spring
 USER spring
 
 EXPOSE 8080
